@@ -1,37 +1,30 @@
-package com.campusdual.appamazing.model;
+package com.campusdual.appamazing.model.dto;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "PRODUCTS")
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class ProductDTO {
 
-    @Column
+    //los campos aquí declarados seran los que se envién a quien hizo la petición, y así evitar
+    //traer todos los campos de la entity. (aunque en este caso estamos trayendo todos)
+    private int id;
     private String name;
-    @Column
     private int stock;
-    @Column
     private BigDecimal price;
-    @Column
     private boolean active;
-    @Column
     private Date date_added;
 
-    //getters & setters
+    //Getters & Setters
     public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
