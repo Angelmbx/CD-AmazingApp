@@ -46,5 +46,23 @@ public class ProductController {
 
     //ahora insert, update, delete.
 
+    //insert
+    @PostMapping("/add")
+    public int addProduct(ProductDTO productDTO){ //dado que es un POST llegaran los datos a traves del body
+        return this.productService.insertProduct(productDTO);
+    }
+    //update
+    @PutMapping("/update")
+    public int updateProduct(@RequestBody ProductDTO productDTO){
+        return this.productService.updateProduct(productDTO);
+    }
+    //delete
+    @DeleteMapping("/delete")
+    public int deleteProduct(@RequestBody ProductDTO productDTO){
+        return this.productService.deleteProduct(productDTO);
+    }
+
+
+    //con to esto ya tendríamos nuestros endpoints definidos.
 
 }
