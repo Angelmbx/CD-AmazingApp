@@ -25,7 +25,6 @@ public class ProductService implements IProductService {
         Product product = ProductMapper.INSTANCE.toEntity(productDTO); //esto se podría omitir porque el DTO tambien tiene id... pero la conversion del return es necesaria igualmente
         //ahora ya tenemos nuestro Producto,
 
-
         //le paso un Id de un producto, me devuelve la tupla correspondiente
         //vuelvo a hacer la conversión
         return ProductMapper.INSTANCE.toDTO(productDao.getReferenceById(product.getId()));
@@ -33,21 +32,34 @@ public class ProductService implements IProductService {
 
     @Override
     public List<ProductDTO> queryAllProducts() {
-        return null;
+        //el DAO nos devuelve una lista de entidades, y lo que nos devuelve nuestra funcion es una lista de DTOs
+        //se hace conversion y se devuelve
+        return ProductMapper.INSTANCE.toDTOList(productDao.findAll());
     }
 
     @Override
     public int insertProduct(ProductDTO productDTO) {
-        return 0;
+        //llega productDTO que traerá todos los datos salvo ID que lo genera la BD automáticamente
+        //hacemos conversión
+        Product product = ProductMapper.INSTANCE.toEntity(productDTO);
+        productDao.saveAndFlush(product);
+        //saveAndFlush = Guardar y commitear los cambios
+        return product.getId(); //devuelve ID del producto insertado
     }
 
     @Override
     public int updateProduct(ProductDTO productDTO) {
-        return 0;
+        //insert si existe el ID lo actualiza, sino crea uno nuevo. Asi que se llama insert y el gestiona
+
+        return this.insertProduct(productDTO);
     }
 
     @Override
     public int deleteProduct(ProductDTO productDTO) {
-        return 0;
+        int id = productDTO.getId();
+        Product product = ProductMapper.INSTANCE.toEntity(productDTO); //entidad que le pasamos al dao para que elimine
+        productDao.delete(product); //se elimina
+
+        return id; //devuelve id de la entidad eliminada
     }
 }
