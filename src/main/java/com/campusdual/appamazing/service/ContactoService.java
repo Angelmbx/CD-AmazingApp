@@ -4,8 +4,8 @@ import com.campusdual.appamazing.api.IContactosService;
 import com.campusdual.appamazing.model.Contacto;
 import com.campusdual.appamazing.model.dao.IContactDao;
 import com.campusdual.appamazing.model.dto.ContactoDTO;
-import com.campusdual.appamazing.model.dto.ProductDTO;
 import com.campusdual.appamazing.model.dto.dtoMapper.ContactoMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @Service("ContactoService")
 @Lazy//So carga esta clase cando sexa invocada. Evitar cargar moito nada mais arrincar
 public class ContactoService implements IContactosService {
-
+    @Autowired
    private IContactDao contactDao;
     @Override
     public ContactoDTO queryContacto(ContactoDTO contactoDTO) {
@@ -29,19 +29,19 @@ public class ContactoService implements IContactosService {
     }
 
     @Override
-    public int insertProduct(ContactoDTO contactoDTO) {
+    public int insertContacto(ContactoDTO contactoDTO) {
         Contacto contacto = ContactoMapper.INSTANCE.toEntity(contactoDTO);
         contactDao.saveAndFlush(contacto);
         return contacto.getId();
     }
 
     @Override
-    public int updateProduct(ContactoDTO contactoDTO) {
-        return this.insertProduct(contactoDTO);
+    public int updateContacto(ContactoDTO contactoDTO) {
+        return this.insertContacto(contactoDTO);
     }
 
     @Override
-    public int deleteProduct(ContactoDTO contactoDTO) {
+    public int deleteContacto(ContactoDTO contactoDTO) {
         int id = contactoDTO.getId();
         Contacto contacto = ContactoMapper.INSTANCE.toEntity(contactoDTO);
         contactDao.delete(contacto);

@@ -48,7 +48,7 @@ public class ProductController {
 
     //insert
     @PostMapping("/add")
-    public int addProduct(ProductDTO productDTO){ //dado que es un POST llegaran los datos a traves del body
+    public int addProduct(@RequestBody ProductDTO productDTO){ //dado que es un POST llegaran los datos a traves del body
         return this.productService.insertProduct(productDTO);
     }
     //update

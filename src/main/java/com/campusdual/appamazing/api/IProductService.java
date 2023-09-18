@@ -9,7 +9,7 @@ public interface IProductService {
     List<ProductDTO> queryAllProducts(); //queryAll
     //insert update & delete. No devuelven un objeto, sino el numero de lineas afectadas
     //aunque lo configuraremos para que devuelvan el id de lo modificado
-    int insertProduct(ProductDTO productDTO);//trae to do menos el id
+    int insertProduct(ProductDTO productDTO);//to do menos el id
     int updateProduct(ProductDTO productDTO); // si no hay where
     int deleteProduct(ProductDTO productDTO); // si no hay where elimina todos
 }
